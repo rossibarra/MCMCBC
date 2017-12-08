@@ -5,6 +5,14 @@ output:
   html_notebook: default
 ---
 #Setup
+### Libs
+```{r}
+library(gsl)
+library(utils)
+library(dplyr)
+library(coda)
+```
+
 ### Functions
 ```{r}
 #confluent hypergeometric
