@@ -5,12 +5,15 @@ output:
   html_notebook: default
 ---
 #Setup
-### Libs
+### Libs & colors
 ```{r}
 library(gsl)
 library(utils)
+library(cowplot)
 library(dplyr)
 library(coda)
+
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 ```
 
 ### Functions
@@ -218,6 +221,7 @@ Posterior vs Prior
 prior.mu=rexp(length(mu.samples),rates[1])
 post.mu=mu.samples
 mode.mu=density(post.mu)$x[which(density(post.mu)$y==max(density(post.mu)$y))]
+mean.mu=mean(mu.samples)
 muplot<-ggplot(data.frame(post.mu,prior.mu)) +
   geom_histogram(aes(post.mu),fill=cbPalette[2],bins=30) + 
   geom_histogram(aes(prior.mu),bins=30,alpha=0.2,fill=cbPalette[1])+
@@ -234,6 +238,7 @@ if(fake==TRUE){ muplotzoom=muplotzoom+geom_vline(xintercept = fake.alpha/(4*Ne))
 #BETA
 prior.nu=rexp(length(nu.samples),rates[2])
 post.nu=nu.samples
+mean.nu=mean(nu.samples)
 mode.nu=density(post.nu)$x[which(density(post.nu)$y==max(density(post.nu)$y))]
 nuplot<-ggplot(data.frame(post.nu,prior.nu)) +
   geom_histogram(aes(post.nu),fill=cbPalette[3],bins=30) + 
@@ -252,6 +257,7 @@ if(fake==TRUE){ nuplotzoom=nuplotzoom+geom_vline(xintercept = fake.beta/(4*Ne))}
 #GAMMA
 prior.s=rexp(length(s.samples),rates[3])
 post.s=s.samples
+mean.s=mean(s.samples)
 mode.s=density(post.s)$x[which(density(post.s)$y==max(density(post.s)$y))]
 splot<-ggplot(data.frame(post.s,prior.s)) + 
   geom_histogram(aes(post.s),fill=cbPalette[4],bins=30) + 
@@ -297,4 +303,5 @@ post_sfs=exp(post_sfs)/sum(exp(post_sfs))*sum(my_sfs)
 points(post_sfs~c(0:max(k)),cex=1,col=cbPalette[2],pch=19)
 legend("top",legend=c("observed","mode of posterior"),fill=c("black",cbPalette[2]))
 ```
+
 
