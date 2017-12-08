@@ -1,7 +1,12 @@
 FROM rocker/binder:3.4.2
 
-## Copies your repo files into the Docker Container
+
 USER root
+
+## Install system dependency for gsl package
+RUN apt-get update && apt-get -y install libgsl-dev
+
+## Copies your repo files into the Docker Container
 COPY . ${HOME}
 RUN chown -R ${NB_USER} ${HOME}
 
