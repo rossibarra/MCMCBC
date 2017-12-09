@@ -3,4 +3,4 @@
 
 # MCMCBC
 
-methylation SFS MCMC
+Caluclate parameters of mutation and selection from the site freqeuncy spectrum of methylated sites. Based on work from [Charlesworth & Jain](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4256773/).
